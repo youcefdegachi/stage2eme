@@ -1,0 +1,35 @@
+npm i axios=> download feact api 
+download express use => npm i express 
+
+
+npm i bcrypt => download crypt method 
+
+?npm install -g concurrently => run 2 concurrently 
+
+
+?npm i -D dotenv => dotenv to hide improter value use .env
+
+npm i jsonwebtoken => download jwt
+npm i cookie-parser => download cookie-parser
+ npm install cookie
+
+npm i mongoose
+npm i nodemon
+npm i multer
+npm i bcryptjs
+
+
+npm i middleware
+ npm install express-async-handler
+
+
+
+=> frontend 
+
+npm i react-toastify
+
+frontend / download redux //=> npm i @reduxjs/toolkit
+frontend /  npm i react-redux 
+
+
+npm install react-redux @reduxjs/toolkit react-toastify web-vitals @paypal/react-paypal-js react-router-dom react-helmet-async react-icons react-bootstrap
