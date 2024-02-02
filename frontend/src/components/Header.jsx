@@ -64,6 +64,22 @@ export default function Header() {
                                     <Nav.Link href="/login" ><FaUser/> Sign In</Nav.Link>
                                 </LinkContainer>
                             ) }
+                            { userInfo && userInfo.isAdmin ? (
+                                <NavDropdown title='admin' >
+                                
+                                    <LinkContainer to="/admin/orderlist/">
+                                        <NavDropdown.Item>Orders</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <LinkContainer to="/admin/userlist/">
+                                        <NavDropdown.Item>Users</NavDropdown.Item>
+                                    </LinkContainer>
+                                    <LinkContainer to="/admin/productlist/">
+                                        <NavDropdown.Item>Product</NavDropdown.Item>
+                                    </LinkContainer>
+
+                                </NavDropdown>
+                                ):(<></>)
+                            }
                                 
                         </Nav>
                     </Navbar.Collapse>

@@ -25,6 +25,7 @@ import store from './store';
 
 // private route
 import PrivateRoute from './components/PrivateRoute';
+import AdminRoute from './components/AdminRoute';
 //
 import CartScreen from './screens/cartScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -32,8 +33,9 @@ import RegisterScreen from './screens/RegisterScreen';
 import ShippingScreen from './screens/ShippingScreen';
 import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
-
+import OrderScreen from './screens/OrderScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import OrderListScreen from './screens/admin/OrderListScreen';
 
 const router = createBrowserRouter (
   createRoutesFromElements(
@@ -47,14 +49,18 @@ const router = createBrowserRouter (
 
       {/*// ! private route you cant access them without login  */}
       <Route path='' element={<PrivateRoute />}>
+        <Route path='/profile' element={<ProfileScreen />} />
         
 
         <Route path='/shipping' element={<ShippingScreen />} />
-        
         <Route path='/payment' element={<PaymentScreen />} />
         <Route path='/placeorder' element={<PlaceOrderScreen />} />
-        <Route path='/profile' element={<ProfileScreen />} />
-        ProfileScreen
+        <Route path='/orders/:id' element={<OrderScreen />} />
+      
+      </Route>
+      <Route path='' element={<AdminRoute />}>
+        <Route path='/admin/orderlist' element={<OrderListScreen />} />
+      
       </Route>
     </Route>
     // </Router>
