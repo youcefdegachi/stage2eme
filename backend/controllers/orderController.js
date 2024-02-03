@@ -92,12 +92,84 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 
 // @desc    Update order to delivered
 // @route   PUT /api/orders/:id/deliver
-// @access  Private
-const updateOrderToDelivered = asyncHandler(async (req, res) => {
-  res.send('updateOrderToDelivered')
+// @access  Private/Admin
+const changeOrderToDelivered = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = true;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
 });
 
 
+// @desc    Update order to not delivered
+// @route   Post /api/orders/:id/deliver
+// @access  Private/Admin
+const changeOrderToNotDelivered = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isDelivered = false;
+    order.deliveredAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+
+
+// @desc    Change order to paid
+// @route   PUT /api/orders/:id/paid
+// @access  Private/Admin
+const changeOrderToPaid = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isPaid = true;
+    order.paidAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
+
+
+
+// @desc    Change order to not paid
+// @route   Post /api/orders/:id/paid
+// @access  Private/Admin
+const changeOrderToNotPaid = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (order) {
+    order.isPaid = false;
+    order.paidAt = Date.now();
+
+    const updatedOrder = await order.save();
+
+    res.json(updatedOrder);
+  } else {
+    res.status(404);
+    throw new Error('Order not found');
+  }
+});
 
 
 
@@ -119,6 +191,9 @@ export {
   getMyOrders,
   getOrderById,
   updateOrderToPaid,
-  updateOrderToDelivered,
+  changeOrderToPaid,
+  changeOrderToNotPaid,
+  changeOrderToDelivered,
+  changeOrderToNotDelivered,
   getOrders,
 };

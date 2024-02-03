@@ -44,6 +44,35 @@ export const orderApiSlice = apiSlice.injectEndpoints({
 
 
 
+    // todo: add paid and deliver
+    deliverOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `${ORDERS_URL}/${orderId}/deliver`,
+        method: 'PUT',
+      }),
+    }),
+    paidOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `${ORDERS_URL}/${orderId}/paid`,
+        method: 'PUT',
+      }),
+    }),
+
+
+    // todo: remove from paid and deliver
+    notDeliverOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `${ORDERS_URL}/${orderId}/deliver`,
+        method: 'Post',
+      }),
+    }),
+    notPaidOrder: builder.mutation({
+      query: (orderId) => ({
+        url: `${ORDERS_URL}/${orderId}/paid`,
+        method: 'Post',
+      }),
+    }),
+
 
 
   })
@@ -53,5 +82,12 @@ export const { useCreateOrderMutation,
   useGetMyOrdersQuery,
   useGetOrderDetailsQuery,
   usePayOrderMutation,
-  useGetOrdersQuery
+  useGetOrdersQuery,
+
+  useDeliverOrderMutation,
+  usePaidOrderMutation,
+  useNotDeliverOrderMutation,
+  useNotPaidOrderMutation,
+
+  
 } =orderApiSlice;
