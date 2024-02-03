@@ -1,22 +1,17 @@
-import { useEffect } from 'react';
-import { Link, useParams , useNavigate} from 'react-router-dom';
-import { Row, Col, ListGroup, Image, Card, Button } from 'react-bootstrap';
-// import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
-import { toast } from 'react-toastify';
+
+import { useParams} from 'react-router-dom';
+import { Row, Col, ListGroup, Image, Button } from 'react-bootstrap';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import {
   useGetOrderDetailsQuery,
-  usePayOrderMutation,
-
   useDeliverOrderMutation,
   usePaidOrderMutation,
   useNotDeliverOrderMutation,
   useNotPaidOrderMutation,
 
 } from '../slices/ordersApiSlices';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 
