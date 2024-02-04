@@ -1,3 +1,5 @@
+import path from 'path';
+
 import dotenv from 'dotenv';
 import express from "express";
 import connectDB from './config/db.js';
@@ -6,6 +8,7 @@ import userRoutes from './routes/userRoutes.js'
 import orderRoutes from './routes/orderRoutes.js' 
 import { errorHandler,notFound} from './middleware/errorMiddleware.js'
 import cookieParser from 'cookie-parser';
+import uploadRoutes from './routes/uploadRoutes.js'
 /./
 
 // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
@@ -24,6 +27,7 @@ app.use(cookieParser());
 app.use('/api/products',productRoutes)
 app.use('/api/users',userRoutes)
 app.use('/api/orders',orderRoutes)
+app.use('/api/upload',uploadRoutes)
 
 
 
@@ -36,7 +40,8 @@ app.get('/' , (req,res) =>{
 })
 
 
-
+const __dirname = path.resolve(); //set __dirname to current working directory
+app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
 
 
 app.use(notFound);
