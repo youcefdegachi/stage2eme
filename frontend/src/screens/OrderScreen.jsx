@@ -73,33 +73,7 @@ const OrderScreen = () => {
 
               {order.isDelivered? (
                 <>
-                {/* //! I try to make button next to message
-                
-                <Col md={6}>
-                  <ListGroup.Item>
-                  <Message variant='success'>
-                    Delivered on {order.deliveredAt}
-                  </Message>
-                  </ListGroup.Item>
-                </Col>
-                
-                <Col md={4}>
-                  <ListGroup.Item>
-                  {userInfo &&
-                    userInfo.isAdmin &&
-                    !order.isDelivered && (
-                      <ListGroup.Item>
-                        <Button
-                          type='button'
-                          className='btn btn-block'
-                          onClick={deliverHandler}
-                        >
-                          Mark As Delivered
-                        </Button>
-                      </ListGroup.Item>
-                    )}
-                  </ListGroup.Item>
-                </Col> */}
+              
 
 
                   <Message variant='success'>
@@ -235,7 +209,9 @@ const OrderScreen = () => {
                     </Button>
                   </ListGroup.Item>
                 )
-                  :(
+                  :userInfo &&
+                  userInfo.isAdmin &&
+                  order.isDelivered ?(
                     <ListGroup.Item>
                       <Button
                         type='button'
@@ -245,6 +221,8 @@ const OrderScreen = () => {
                         Mark Not Delivered
                       </Button>
                     </ListGroup.Item>
+                  ):(
+                    <></>
                   )
                 
                 }
@@ -266,7 +244,9 @@ const OrderScreen = () => {
                     </Button>
                   </ListGroup.Item>
                 )
-                :(
+                :userInfo &&
+                userInfo.isAdmin &&
+                order.isPaid ?(
                   <ListGroup.Item>
                     <Button
                       type='button'
@@ -276,6 +256,9 @@ const OrderScreen = () => {
                       Mark Not Paid
                     </Button>
                   </ListGroup.Item>
+                ):(
+                  <>
+                  </>
                 )
                 }
           </ListGroup>
