@@ -12,7 +12,6 @@ const loading = () => {
             }
         }
         >
-
         </Spinner>
     )
 }

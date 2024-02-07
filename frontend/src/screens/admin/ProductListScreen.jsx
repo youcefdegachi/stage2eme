@@ -55,7 +55,7 @@ const ProductListScreen = () => {
           <h1>Products</h1>
         </Col>
         <Col className='text-end'>
-          <Button className='my-3' onClick={createProductHandler}>
+          <Button className='my-3' onClick={createProductHandler} variant='danger'>
             <FaPlus /> Create Product
           </Button>
         </Col>
@@ -106,10 +106,6 @@ const ProductListScreen = () => {
               ))}
             </tbody>
           </Table>
-          {/* <Paginate
-            pages={data.pages}
-            page={data.page}
-            /> */}
           <Paginate pages={data.pages} page={data.page} isAdmin={true} />
         </>
       )}

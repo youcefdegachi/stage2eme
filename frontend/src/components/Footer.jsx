@@ -8,9 +8,7 @@ function Footer() {
     return (
             <footer>
                 <Container>
-                    {/* <Row className="justify-content-center text-center"> */}
                     <Row>
-                        {/* <Col lg={6}> */}
                         <Col className='text-center py-3'>
                             <p> youcef &copy; {currentYear}</p>
                         </Col>

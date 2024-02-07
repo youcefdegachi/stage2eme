@@ -2,7 +2,6 @@ import React from 'react'
 import { useNavigate,useParams } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Form, Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
-// import axios from "axios";
 import { useState } from 'react';
 import Rating from '../components/Rating'
 import Loading from '../components/Loader';
@@ -12,7 +11,6 @@ import { addToCart } from '../slices/cartSlice'
 import {useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
-// import product from '../product' //=> change get all product from the api
 
 
 const ProductScreen = () => {

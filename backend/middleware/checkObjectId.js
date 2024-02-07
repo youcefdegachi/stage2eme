@@ -1,4 +1,4 @@
-// @ts-check
+// @test-check
 import { isValidObjectId } from 'mongoose';
 
 function checkObjectId(req, res, next) {

@@ -64,17 +64,6 @@ const UserListScreen = () => {
                   )}
                 </td>
                 <td>
-                {/* <LinkContainer to={`/admin/user/${user._id}/edit`} style={{ marginRight: '10px' }} > 
-                  <Button variant='light' className='btn-sm'>
-                          <FaEdit />
-                  </Button>
-                </LinkContainer> */}
-                {/* <Button
-                        variant='danger'
-                        className='btn-sm'
-                        onClick={() => deleteHandler(user._id)}
-                ><FaTrash style={{ color: 'white' }} />
-                </Button> */}
                   {user.isAdmin ? (
                     <>
                       

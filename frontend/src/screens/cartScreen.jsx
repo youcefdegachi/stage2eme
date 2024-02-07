@@ -103,9 +103,9 @@ const CartScreen = () => {
               <Button
                 type='button'
                 className='btn-block'
+                variant='danger'
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
-                // to='/shipping'
               >
                 Proceed To Checkout
               </Button>

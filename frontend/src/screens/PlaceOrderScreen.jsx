@@ -139,6 +139,7 @@ const placeOrderHandler = async () => {
               <Button
                 type='button'
                 className='btn-block'
+                variant='danger'
                 disabled={cart.cartItems.length === 0}
                 onClick={placeOrderHandler}
               >

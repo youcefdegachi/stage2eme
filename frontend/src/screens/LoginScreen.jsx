@@ -32,13 +32,11 @@ const LoginScreen = () => {
         const res = await login({ email, password}).unwrap();
         dispatch(setCredentials({...res}))
       }catch(err){
-        
-        // toast.error(err.message)
-      toast.error(err?.data?.message ||err.error) // => create label error
-        // alert ('error')
+              toast.error(err?.data?.message ||err.error) // => create label error
+
       }
     }
-    // console.log(email,password);
+
   }
 
   return (
@@ -58,7 +56,7 @@ const LoginScreen = () => {
 
         </Form.Group>
 
-  {/* password */}
+
         <Form.Group controlId='password' className='my-3'>
           <Form.Label>Password</Form.Label>
           <Form.Control
@@ -70,7 +68,7 @@ const LoginScreen = () => {
 
         </Form.Group>
 
-        <Button type="submit" variant='primary' className='mt-2'
+        <Button type="submit" variant='danger' className='mt-2'
         disabled={isLoading }>
           Sign In
         </Button>
@@ -79,8 +77,6 @@ const LoginScreen = () => {
       </Form>
       <Row className='py-3'>
         <Col>
-          {/* New Customer? <Link to='/register'>Register</Link> */}
-
         New Customer? <Link to={ redirect ? `/register?redirect=${redirect}` : '/register'}>Register</Link>
 
         </Col>

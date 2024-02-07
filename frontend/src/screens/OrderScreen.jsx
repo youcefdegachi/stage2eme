@@ -55,7 +55,7 @@ const OrderScreen = () => {
     refetch();
   };
 
-  // console.log(order)
+
   return isLoading ? <Loader/> : error ? (<Message variant='danger' />) 
       :(<>
       
@@ -68,7 +68,6 @@ const OrderScreen = () => {
                 <ListGroup.Item>
                 <h3>Order Id: {order._id}</h3>
                 </ListGroup.Item>
-                {/* <br /> */}
             <ListGroup.Item>
 
               {order.isDelivered? (
@@ -88,7 +87,6 @@ const OrderScreen = () => {
             }
             </ListGroup.Item>
 
-              {/* </ListGroup.Item> */}
             <ListGroup.Item>
             {order.isPaid ? (
             <Message variant='success'>
@@ -129,13 +127,6 @@ const OrderScreen = () => {
             
             
             </ListGroup>
-              {/* )
-              
-              )}
-            </ListGroup.Item>
-
-
-            </ListGroup> */}
           </Col>
         
         <Col md={4}>

@@ -74,7 +74,7 @@ function ShippingScreen() {
             onChange={(e) => setCountry(e.target.value)}
           />
 
-          <Button type="submit" variant='primary' className='my-2'>
+          <Button type="submit" variant='danger' className='my-2'>
             Continue
           </Button>
         </Form.Group>

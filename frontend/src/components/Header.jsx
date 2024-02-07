@@ -13,7 +13,6 @@ import logo from "../assets/Y.png"
 export default function Header() {
     const { cartItems } = useSelector((state) => state.cart);
     const { userInfo } = useSelector((state) => state.auth);
-    // console.log(cartItems) => cartItems is a product
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
@@ -29,7 +28,7 @@ export default function Header() {
     }
     return (
         <header>
-            <Navbar bg="dark" variant="dark" expand="md" collapseOnSelect>
+            <Navbar bg="danger" variant="danger" expand="md" collapseOnSelect>
                 <Container>
                     <LinkContainer to="/">
                         <Navbar.Brand href="#home">
