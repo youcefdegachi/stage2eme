@@ -17,6 +17,8 @@ import {
 import { Provider} from 'react-redux';
 import store from './store';
 
+//not found page
+import NotFound from './screens/NotFoundScreen';
 // private controller
 import PrivateRoute from './components/PrivateRoute';
 import AdminRoute from './components/AdminRoute';
@@ -74,6 +76,13 @@ const router = createBrowserRouter (
         <Route path='/admin/userlist' element={<UserListScreen />} />
       
       </Route>
+
+
+
+
+
+    <Route path='*' element={<NotFound />} />
+
     </Route>
     // </Router>
   )
