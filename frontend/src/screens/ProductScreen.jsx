@@ -50,10 +50,8 @@ const ProductScreen = () => {
 
     const addToCartHandler = () => {
         dispatch(addToCart({...product ,qty}));
-        navigate('/cart');
+        navigate('/');
     }
-
-    
     return (
         <>
         <Link className="btn btn-light my-3" to="/">go back</Link>

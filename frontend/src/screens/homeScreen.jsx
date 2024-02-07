@@ -1,9 +1,12 @@
 import React from 'react'
-import { Row, Col } from "react-bootstrap"
+import { Row, Col } from "react-bootstrap";
+import { useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Product from '../components/Product'
 
 import Loading from '../components/Loader';
 import Message from '../components/Message';
+import Paginate from '../components/Paginate';
 // import products from "../products" //=> chagne it to api
 
 
@@ -24,6 +27,7 @@ import { useGetProductsQuery } from '../slices/productsApiSlice'
 
 function HomeScreen() {
 
+    const { pageNumber, keyword } = useParams();
 
     // const [products,setProducts] = useState([]);
     // useEffect(()=>{
@@ -34,11 +38,11 @@ function HomeScreen() {
     //     fetchProducts();
     // },[])
 
-    const { data: products, isLoading,error} = useGetProductsQuery();
+    const { data, isLoading,error} = useGetProductsQuery({keyword, pageNumber});
 
     return (
         <>
-        
+        { keyword && <Link to='/' className='btn btn-light'> Go Back</Link>}
         { isLoading ?(
             <Loading></Loading>
         ) 
@@ -51,7 +55,7 @@ function HomeScreen() {
             <>
             <h1>Latest Products</h1>
             <Row>
-                {products.map((product)=>(
+                {data.products.map((product)=>(
                     <Col key={product._id} sm={12} md={6} lg={4} xl={3} >
                         {/* <img src={product.image} alt="dsfsdf"/> */}
                         {/* <h3>{product.name }</h3> */}
@@ -59,6 +63,11 @@ function HomeScreen() {
                     </Col>
                 ))}
             </Row>
+            <Paginate
+            pages={data.pages}
+            page={data.page}
+            keyword={keyword ? keyword : ''}
+            />
             </>
         )}
     </>
