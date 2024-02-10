@@ -46,6 +46,13 @@ const ProductScreen = () => {
     };
     
 
+    const testMaxQty = (e) => {
+        if (qty > product.countInStock) {
+            alert("Entered quantity exceeds available stock!");
+            setQty(product.countInStock); // Reset quantity to maximum available stock
+        }
+    }
+
     const addToCartHandler = () => {
         dispatch(addToCart({...product ,qty}));
         navigate('/');
@@ -108,8 +115,9 @@ const ProductScreen = () => {
                                     <ListGroup.Item>
                                         <Row>
                                             
-                                            <Col>QTY</Col>
+                                            <Col> <h6>QTY</h6> </Col>
                                             <Col>
+                                                {/* //! show max quantity using selected method
                                                 <Form.Control  as="select" value = {qty}
                                                 onChange={(e) => setQty(Number(e.target.value))}
                                                 >
@@ -121,7 +129,19 @@ const ProductScreen = () => {
                                                             </option>
                                                         )
                                                     )}
-                                                </Form.Control>
+                                                </Form.Control> */}
+                                                {/* //! show max quantity using input method*/}
+                                                
+                                                <input
+                                                    type="number"
+                                                    value={qty}
+                                                    onChange={(e) => setQty(Number(e.target.value))}
+                                                    min="1" // You can set min value to 1 or any other minimum value you want
+                                                    max={product.countInStock} // Set max value to the maximum available stock
+                                                    style={{ borderRadius: '10px' }} // Set border radius to 5px
+                                                    onBlur={(e) => testMaxQty(e)} // Alert when leaving the input box
+                                                />
+                                                max:{product.countInStock}
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>)
