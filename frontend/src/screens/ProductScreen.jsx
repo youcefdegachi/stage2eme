@@ -136,10 +136,10 @@ const ProductScreen = () => {
                                                     type="number"
                                                     value={qty}
                                                     onChange={(e) => setQty(Number(e.target.value))}
-                                                    min="1" // You can set min value to 1 or any other minimum value you want
-                                                    max={product.countInStock} // Set max value to the maximum available stock
-                                                    style={{ borderRadius: '10px' }} // Set border radius to 5px
-                                                    onBlur={(e) => testMaxQty(e)} // Alert when leaving the input box
+                                                    min="1"
+                                                    max={product.countInStock} 
+                                                    style={{ borderRadius: '10px' }} 
+                                                    onBlur={(e) => testMaxQty(e)}
                                                 />
                                                 max:{product.countInStock}
                                             </Col>

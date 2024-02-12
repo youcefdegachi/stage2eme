@@ -20,8 +20,19 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  const testMaxQty = (product) => {
+    if (product.qty > product.countInStock) {
+        alert("Entered quantity exceeds available stock!");
+        let  qty = product.countInStock
+        dispatch(addToCart({ ...product, qty }));
+    }
+    if(product.qty === 0){
+        window.confirm("are you sure you want to delete this item?") ?dispatch(removeFromCart(product._id)) : dispatch(addToCart({ ...product, qty:1 }));
+      }
+  }
+
   const addToCartHandler = (product, qty) => {
-    dispatch(addToCart({ ...product, qty }));
+      dispatch(addToCart({ ...product, qty }));
   };
 
   const removeFromCartHandler = (id) => {
@@ -57,19 +68,19 @@ const CartScreen = () => {
                   </Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
-                    <Form.Control
-                      as='select'
-                      value={item.qty}
-                      onChange={(e) =>
-                        addToCartHandler(item, Number(e.target.value))
-                      }
-                    >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
+
+                    
+                    <input    
+                        type="number"
+                        value={item.qty}
+                        onChange={(e) => addToCartHandler(item, Number(e.target.value))}
+                        min="1" 
+                        max={item.countInStock} 
+                        style={{ borderRadius: '10px' }}
+                        onBlur={(e) => testMaxQty(item)} 
+                    />
+                    <br />
+                    max:{item.countInStock}
                   </Col>
                   <Col md={2}>
                     <Button
