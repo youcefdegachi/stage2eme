@@ -148,11 +148,42 @@ const createProductReview = asyncHandler(async (req, res) => {
 // @access  Public
 const getTopProducts = asyncHandler(async (req, res) => {
     const products = await Product.find({}).sort({ rating: -1 }).limit(3);
-
     res.json(products);
     });
 
-    export {
+// §!! reduce products
+
+/* // @desc    Reduce form qty of products
+// @route   PUT /api/products/reduce
+// @access  Public
+const ReduceFromQtyOfProducts = asyncHandler(async (req, res) => {
+    const { name, price, description, image, brand, category, countInStock } =
+        req.body;
+
+    const product = await Product.findById(req.params.id);
+
+    if (product) {
+        if (product.countInStock>=countInStock) {
+        product.countInStock -= countInStock;
+        const updatedProduct = await product.save();
+        res.json(updatedProduct);
+        }else{
+            res.status(400);
+            throw new Error('Not enough stock');
+        }
+    } else {
+        res.status(404);
+        throw new Error('Product not found');
+    }
+});
+
+
+ */
+
+
+
+
+export {
     getProducts,
     getProductById,
     createProduct,
@@ -160,4 +191,5 @@ const getTopProducts = asyncHandler(async (req, res) => {
     deleteProduct,
     createProductReview,
     getTopProducts,
+    // ReduceFromQtyOfProducts
 };

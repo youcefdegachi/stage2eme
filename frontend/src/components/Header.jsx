@@ -67,7 +67,7 @@ export default function Header() {
                                 </LinkContainer>
                             ) }
                             { userInfo && userInfo.isAdmin ? (
-                                <NavDropdown title='admin' >
+                                <NavDropdown title='Management' >
                                 
                                     <LinkContainer to="/admin/orderlist/">
                                         <NavDropdown.Item>Orders</NavDropdown.Item>

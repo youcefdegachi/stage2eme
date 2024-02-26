@@ -11,6 +11,37 @@ import cookieParser from 'cookie-parser';
 import uploadRoutes from './routes/uploadRoutes.js'
 /./
 
+// => connect to database from mongoose server and mongodbcompos
+// => using for test and for show results in presentation
+
+
+
+
+
+// const mongoose = require("mongoose");
+
+// import {mongoose} from 'mongoose';
+// // todo: prot of mongodb (mongodb://127.0.0.1:27018) ('27018')
+// mongoose.connect('mongodb://127.0.0.1:27017/')
+//     .then( // => if work 
+//         ()=>{
+//             console.log("connected");
+//             port = 27017
+//         },
+//     )
+//     .catch( // => if not work
+//         (err)=>{
+//             console.log("error is :"+err)
+//         }
+//     )
+
+
+
+
+
+
+
+
 // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
 const port = process.env.PORT || 5000;
 
