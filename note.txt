@@ -1,6 +1,7 @@
 npm i axios=> download feact api 
 download express use => npm i express 
 
+npm i concurrently => download crypt method 
 
 npm i bcrypt => download crypt method 
 

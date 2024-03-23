@@ -27,12 +27,7 @@ const cartSlice = createSlice({
             state.cartItems = state.cartItems.filter((x) => x._id!== action.payload);
             return updateCart(state);
         },
-        // updateQuantity: (state, action) => {
-        //     state.cartItems = state.cartItems.map(item => item.id === action.payload.id? {...item, quantity: action.payload.quantity} : item);
-        // },
-        // clearCart: (state) => {
-        //     state.cartItems = [];
-        // }
+
         saveShippingAddress: (state, action) => {
             state.shippingAddress = action.payload;
             // localStorage.setItem('shippingAddress', JSON.stringify(action.payload));

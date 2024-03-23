@@ -8,6 +8,8 @@ import {  useLoginMutation } from '../slices/usersApiSlice'
 import { setCredentials } from '../slices/authSlice'
 import { toast } from 'react-toastify'
 const LoginScreen = () => {
+
+
   const  [email, setEmail] = useState('');
   const  [password, setPassword] = useState('');
   
@@ -17,18 +19,22 @@ const LoginScreen = () => {
   const [ login, { isLoading} ] = useLoginMutation()
   const { userInfo } = useSelector((state) => state.auth)
   const { search } = useSelector((state) => state.auth);
+  // Extract the value of the redirect query parameter from the current URL
+  // http://localhost:3000/register?redirect=/
   const sp = new URLSearchParams(search)
   const redirect = sp.get('redirect') ||  '/';
 
+
   useEffect(()=>{
     if (userInfo){
-      navigate(redirect)
+      navigate(redirect) // go to racine '/'
     }
   }, [userInfo, redirect])
   
   const submitHandler = async (e) => {
     e.preventDefault();{
       try{
+        // save new user information
         const res = await login({ email, password}).unwrap();
         dispatch(setCredentials({...res}))
       }catch(err){

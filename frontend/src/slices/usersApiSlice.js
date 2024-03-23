@@ -46,7 +46,7 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     method: 'DELETE',
                 }),
             }),
-    }),// last
+    }),
 })
 
 export const { useLoginMutation, useRegisterMutation, useLogoutMutation,useProfileMutation, useGetUsersQuery,useDeleteUserMutation,useUpdateUserMutation } = usersApiSlice;

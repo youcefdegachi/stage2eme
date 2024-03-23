@@ -6,6 +6,7 @@ function Footer() {
     
     const currentYear = new Date().getFullYear();
     return (
+        // show footer (my name and &copy this year)
             <footer>
                 <Container>
                     <Row>

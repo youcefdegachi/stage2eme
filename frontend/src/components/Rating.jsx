@@ -1,7 +1,7 @@
 import React from 'react'
 import {FaStar, FaStarHalfAlt, FaRegStar} from 'react-icons/fa'
 
-
+//  show review (star) and text
 export const Rating = ({ value, text }) => {
 
     return (

@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { useGetProductsDetailsQuery,
   useUpdateProductMutation,
-  useUploadProductImageMutation, } from '../../slices/productsApiSlice';
+  useUploadProductImageMutation } from '../../slices/productsApiSlice';
 const ProductEditScreen = () => {
   const { id: productId } = useParams();
 
@@ -19,13 +19,9 @@ const ProductEditScreen = () => {
   const [category, setCategory] = useState('');
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState('');
-
-  const {
-    data: product,
-    isLoading,
-    refetch,
-    error,
-  } = useGetProductsDetailsQuery(productId);
+  // Get the product details using the useGetProductsDetailsQuery hook
+  //refetch to update the product details
+  const {data: product,isLoading,refetch,error,} = useGetProductsDetailsQuery(productId);
 
   const [updateProduct, { isLoading: loadingUpdate }] = useUpdateProductMutation();
 
@@ -36,6 +32,7 @@ const ProductEditScreen = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
+      // call udateProduct api
       await updateProduct({
         productId,
         name,
@@ -47,6 +44,7 @@ const ProductEditScreen = () => {
         countInStock,
       }).unwrap(); 
       toast.success('Product updated');
+      // Refetch the data using the refetch (in up)
       refetch();
       navigate('/admin/productlist');
     } catch (err) {
@@ -64,12 +62,16 @@ const ProductEditScreen = () => {
       setCountInStock(product.countInStock);
       setDescription(product.description);
     }
-  }, [product]);
+  }, [product]); // this useEffect will work  when the product is updated
 
+
+  // this function for uploading file (image for product)
   const uploadFileHandler = async (e) => {
+    // Create a new FormData object
     const formData = new FormData();
-    formData.append('image', e.target.files[0]);
+    formData.append('image', e.target.files[0]); //image input 
     try {
+      // try read upload image
       const res = await uploadProductImage(formData).unwrap();
       toast.success(res.message);
       setImage(res.image);

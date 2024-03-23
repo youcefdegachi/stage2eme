@@ -4,6 +4,8 @@ import {Card} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Rating from './Rating'
 
+
+// show product form 
 const Product = ({product}) => {
     return (
         <Card style={ {height: '400px'}}>

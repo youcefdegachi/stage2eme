@@ -20,9 +20,11 @@ import { useGetProductsQuery } from '../slices/productsApiSlice'
 
 function HomeScreen() {
 
+
+    // useParams to read number and keyword from url
     const { pageNumber, keyword } = useParams();
 
-
+    // get product from db 
     const { data, isLoading,error} = useGetProductsQuery({keyword, pageNumber});
 
     return (

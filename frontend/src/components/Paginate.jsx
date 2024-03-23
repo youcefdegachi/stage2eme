@@ -1,6 +1,6 @@
 import { Pagination } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-
+//pagination for homepage and is specific to count items or search
 const Paginate = ({ pages, page, isAdmin = false, keyword = '' }) => {
   return (
     pages > 1 && (

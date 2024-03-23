@@ -28,7 +28,7 @@ const OrderScreen = () => {
   const [deliverOrder , {isLoading: loadingDeliver}] = useDeliverOrderMutation();
   const [notDeliverOrder , {isLoading: loadingNotDeliver}] = useNotDeliverOrderMutation();
 
-
+    // change delivery order state using refetch for F5
     const deliverHandler = async () => {
       await deliverOrder(orderId);
       refetch();
@@ -46,6 +46,7 @@ const OrderScreen = () => {
   const [paidOrder , {isLoading: loadingPaid}] = usePaidOrderMutation();
   const [notPaidOrder , {isLoading: loadingNotPaid}] = useNotPaidOrderMutation();
 
+  // change paid order state using refetch for F5
   const paidHandler = async () => {
     await paidOrder(orderId);
     refetch();
@@ -186,7 +187,12 @@ const OrderScreen = () => {
 
               {loadingDeliver && <Loader />}
               {loadingNotDeliver && <Loader />}
-
+              
+              
+              {/**
+                  //todo: test if user is admin 
+                  if admin show change order status buttons
+               */}
               {userInfo &&
                 userInfo.isAdmin &&
                 !order.isDelivered ?(

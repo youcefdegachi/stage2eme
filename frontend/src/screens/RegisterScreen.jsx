@@ -21,24 +21,30 @@ const RegisterScreen = () => {
   const [register, { isLoading }] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
+  
 
+  // Get the current URL search params
   const { search } = useLocation();
+
+  // Parse the search params using the URLSearchParams constructor
   const sp = new URLSearchParams(search);
+  // Extract the value of the redirect query parameter and set it to a variable called redirect
   const redirect = sp.get('redirect') || '/';
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      navigate(redirect);// go to racine '/'
     }
   }, [navigate, redirect, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    //test if psw = confirm psw
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
       try {
+        // save new user
         const res = await register({ name, email, password }).unwrap();
         dispatch(setCredentials({ ...res }));
         navigate(redirect);

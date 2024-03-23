@@ -18,7 +18,7 @@ const ProfileScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const { userInfo } = useSelector((state) => state.auth);
-
+  // get orders from db
   const { data: orders, isLoading, error } = useGetMyOrdersQuery();
 
   const [updateProfile, { isLoading: loadingUpdateProfile }] =
@@ -30,11 +30,14 @@ const ProfileScreen = () => {
   }, [userInfo.email, userInfo.name]);
 
   const dispatch = useDispatch();
+  // update profile
   const submitHandler = async (e) => {
     e.preventDefault();
+    // test if psw and confirm password is correct
     if (password !== confirmPassword) {
       toast.error('Passwords do not match');
     } else {
+      //update profile
       try {
         const res = await updateProfile({
           name,
@@ -110,6 +113,8 @@ const ProfileScreen = () => {
             {error?.data?.message || error.error}
           </Message>
         ) : (
+
+          //show all orders
           <Table striped hover responsive className='table-sm'>
             <thead>
               <tr>
@@ -122,6 +127,7 @@ const ProfileScreen = () => {
               </tr>
             </thead>
             <tbody>
+              {/* show orders */}
               {orders.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>

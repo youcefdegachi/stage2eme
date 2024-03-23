@@ -3,15 +3,20 @@ import { Form, Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+
+// search box for navbar
 const SearchBox = () => {
   const navigate = useNavigate();
   const { keyword: urlKeyword } = useParams();
-
+  // to set default search
   const [keyword, setKeyword] = useState(urlKeyword || '');
 
   const submitHandler = (e) => {
+    // stop any function work
     e.preventDefault();
+    //
     if (keyword) {
+      //navigate to home page using pagination
       navigate(`/search/${keyword.trim()}`);
       setKeyword('');
     } else {
@@ -23,7 +28,7 @@ const SearchBox = () => {
     <Form onSubmit={submitHandler} className='d-flex'>
       <Form.Control
         type='text'
-        name='q'
+        // name='search'
         onChange={(e) => setKeyword(e.target.value)}
         value={keyword}
         placeholder='Search Products...'

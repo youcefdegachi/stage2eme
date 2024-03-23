@@ -31,6 +31,7 @@ const OrderListScreen = () => {
             </tr>
           </thead>
           <tbody>
+            {/* make loop for orders to get every single one */}
             {orders.map((order) => (
               <tr key={order._id}>
                 <td>{order._id}</td>
@@ -38,6 +39,7 @@ const OrderListScreen = () => {
                 <td>{order.createdAt.substring(0, 10)}</td>
                 <td>${order.totalPrice}</td>
                 <td>
+                  {/* if order is paid */}
                   {order.isPaid ? (
                     order.paidAt.substring(0, 10)
                   ) : (
@@ -45,6 +47,7 @@ const OrderListScreen = () => {
                   )}
                 </td>
                 <td>
+                  {/* if order is delivered  */}
                   {order.isDelivered ? (
                     order.deliveredAt.substring(0, 10)
                   ) : (

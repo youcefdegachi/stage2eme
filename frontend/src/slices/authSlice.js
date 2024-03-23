@@ -5,15 +5,17 @@ const initialState = {
   userInfo : localStorage.getItem('userInfo') ?
   JSON.parse(localStorage.getItem('userInfo')) : null,
 }
-
+//save auth in local storage and redux store
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
+    // save and update user info
     setCredentials: (state, action) => {
       state.userInfo = action.payload;
       localStorage.setItem('userInfo', JSON.stringify(action.payload));
     },
+    // remove user info from local storage and redux store 
     logout: (state,action) => {
       state.userInfo = null;
       localStorage.removeItem('userInfo');

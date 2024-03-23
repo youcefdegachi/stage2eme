@@ -11,16 +11,21 @@ import SearchBox from './SearchBox';
 
 import logo from "../assets/Y.png"
 export default function Header() {
+    // Access the cart state from the Redux store
     const { cartItems } = useSelector((state) => state.cart);
+    // Access the auth state from the Redux store
     const { userInfo } = useSelector((state) => state.auth);
+    // Access the dispatch function from the React Redux store
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    
+    //call lougout api method
     const [logoutApiCall] = useLogoutMutation();
+
     const logoutHandler = async () =>{
         try{
-            await logoutApiCall().unwrap();
-            dispatch(logout());
+            // Call the logout API method
+            await logoutApiCall().unwrap(); // unwrap(); to read and handle errors
+            dispatch(logout()); // remove auth cart from redux store
             navigate('/login');
         }catch(err){
             console.log(err);
@@ -41,6 +46,8 @@ export default function Header() {
                         <Nav className='ms-auto'>
                             <SearchBox id="search "/>
                             <LinkContainer to="/cart">
+
+                                {/* cart count  */}
                                 <Nav.Link ><FaShoppingCart/> Cart
                                 {
                                     cartItems.length > 0 &&(
@@ -51,6 +58,7 @@ export default function Header() {
                                 }
                             </Nav.Link>
                             </LinkContainer>
+                            {/* navbar for user */}
                             { userInfo ? (
                                 <NavDropdown title={userInfo.name} id='username'>
                                     
@@ -66,9 +74,12 @@ export default function Header() {
                                     <Nav.Link href="/login" ><FaUser/> Sign In</Nav.Link>
                                 </LinkContainer>
                             ) }
+
+                            {/* navbar for admin  */}
+                            
                             { userInfo && userInfo.isAdmin ? (
                                 <NavDropdown title='Management' >
-                                
+                                    {/* call all component */}
                                     <LinkContainer to="/admin/orderlist/">
                                         <NavDropdown.Item>Orders</NavDropdown.Item>
                                     </LinkContainer>
@@ -82,7 +93,7 @@ export default function Header() {
                                 </NavDropdown>
                                 ):(<></>)
                             }
-                                
+
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

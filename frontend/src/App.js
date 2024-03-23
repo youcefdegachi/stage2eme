@@ -10,14 +10,16 @@ import { Outlet } from 'react-router-dom'
 const App = () => {
   return (
     <>
-      <Header />
+    {/* call Header component to put navbar for all screen */}
+      <Header /> 
       <main className='py-3'>
         <Container>
-          <Outlet />
+          <Outlet /> {/* go to index and call specific screen */}
         </Container>
       </main>
+      {/* call Footer component to put footer for all screen */}
       <Footer />
-      <ToastContainer />
+      <ToastContainer /> {/* to call ToastContainer alert */}
     </>
   )
 }

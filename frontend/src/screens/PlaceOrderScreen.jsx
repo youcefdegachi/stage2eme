@@ -16,6 +16,7 @@ const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
 
   useEffect(()=>{
+    // test if the user skip shipping address and shipping methods
     if(!cart.shippingAddress.address){
       navigate('/shipping')
     }else if(!cart.paymentMethod){
@@ -26,7 +27,7 @@ const PlaceOrderScreen = () => {
 
   const [createOrder, {isLoading, error}] = useCreateOrderMutation();
 
-
+  // save order details in database
 const placeOrderHandler = async () => {
   try {
     const res = await createOrder({

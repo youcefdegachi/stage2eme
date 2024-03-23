@@ -1,14 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  Row,
-  Col,
-  ListGroup,
-  Image,
-  Form,
-  Button,
-  Card,
-} from 'react-bootstrap';
+import {Row,Col,ListGroup,Image,Form,Button,Card} from 'react-bootstrap';
 import { FaTrash } from 'react-icons/fa';
 import Message from '../components/Message';
 import { addToCart, removeFromCart } from '../slices/cartSlice';
@@ -20,6 +12,7 @@ const CartScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
 
+  // test if user put qty more then max quantity
   const testMaxQty = (product) => {
     if (product.qty > product.countInStock) {
         alert("Entered quantity exceeds available stock!");
@@ -30,11 +23,11 @@ const CartScreen = () => {
         window.confirm("are you sure you want to delete this item?") ?dispatch(removeFromCart(product._id)) : dispatch(addToCart({ ...product, qty:1 }));
       }
   }
-
+  // add to cart function
   const addToCartHandler = (product, qty) => {
       dispatch(addToCart({ ...product, qty }));
   };
-
+  // remove from cart function  
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
   };
@@ -57,6 +50,7 @@ const CartScreen = () => {
           </Message>
         ) : (
           <ListGroup variant='flush'>
+            {/*  loop about item  */}
             {cartItems.map((item) => (
               <ListGroup.Item key={item._id}>
                 <Row>
@@ -69,7 +63,7 @@ const CartScreen = () => {
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
 
-                    
+                    {/* user input qty and test maxQty */}
                     <input    
                         type="number"
                         value={item.qty}

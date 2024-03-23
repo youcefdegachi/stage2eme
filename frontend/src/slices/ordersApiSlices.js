@@ -16,6 +16,9 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         query: (id) => ({
           url: `${ORDERS_URL}/${id}`,
         }),
+        // how many time will refetched before cleaning cache automatically
+        //!: it's normal to remove this once but cache will save old data and make my web site take longer reload
+        // will ne full of not important data 
         keepUnusedDataFor: 5,
       }),
 
@@ -31,6 +34,7 @@ export const orderApiSlice = apiSlice.injectEndpoints({
         query: () => ({
           url: `${ORDERS_URL}/mine`,
         }),
+        // how many time will refetched before cleaning cache automatically
         keepUnusedDataFor: 5,
       }),
 

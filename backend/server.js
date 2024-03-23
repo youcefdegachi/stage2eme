@@ -1,5 +1,4 @@
 import path from 'path';
-
 import dotenv from 'dotenv';
 import express from "express";
 import connectDB from './config/db.js';
@@ -10,49 +9,18 @@ import { errorHandler,notFound} from './middleware/errorMiddleware.js'
 import cookieParser from 'cookie-parser';
 import uploadRoutes from './routes/uploadRoutes.js'
 /./
-
-// => connect to database from mongoose server and mongodbcompos
-// => using for test and for show results in presentation
-
-
-
-
-
-// const mongoose = require("mongoose");
-
-// import {mongoose} from 'mongoose';
-// // todo: prot of mongodb (mongodb://127.0.0.1:27018) ('27018')
-// mongoose.connect('mongodb://127.0.0.1:27017/')
-//     .then( // => if work 
-//         ()=>{
-//             console.log("connected");
-//             port = 27017
-//         },
-//     )
-//     .catch( // => if not work
-//         (err)=>{
-//             console.log("error is :"+err)
-//         }
-//     )
-
-
-
-
-
-
-
-
 // §§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§
+
+dotenv.config(); // to let me read variables from .env by  (process.env)
 const port = process.env.PORT || 5000;
 
-dotenv.config();
 const app = express();
 connectDB() // connect db
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended:true }));
-app.use(cookieParser());
+app.use(express.json()); //to read json from request 
+app.use(express.urlencoded({ extended:true })); //accept data from 'form html' for fetching data  
+app.use(cookieParser());// parse cookies attached to incoming requests
 
 // => connect
 app.use('/api/products',productRoutes)
@@ -67,15 +35,15 @@ app.use('/api/upload',uploadRoutes)
 
 
 app.get('/' , (req,res) =>{
-    res.send("API work")
+    // res.send("API work")
 })
 
 
-const __dirname = path.resolve(); //set __dirname to current working directory
-app.use('/uploads',express.static(path.join(__dirname,'/uploads')));
+const __dirname = path.resolve(); //set __dirname to current working directory "/project"
+app.use('/uploads',express.static(path.join(__dirname,'/uploads'))); // to acces all file
 
-
+// use notFound and errorHandler middleware to handle error
 app.use(notFound);
 app.use(errorHandler);
 
-app.listen(port, ()=>{ console.log(`server run on port ${port}`) })
+app.listen(port, ()=>{ console.log(`server run on port ${port}`) }) // listen on port ${port}

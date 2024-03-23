@@ -22,7 +22,7 @@ const ProductListScreen = () => {
   });
 
   const [deleteProduct, { isLoading: loadingDelete }] = useDeleteProductMutation();
-
+  // delete product from db using deleteProduct api
   const deleteHandler = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
@@ -34,9 +34,8 @@ const ProductListScreen = () => {
     }
   };
 
-  const [createProduct, { isLoading: loadingCreate }] =
-    useCreateProductMutation();
-
+  const [createProduct, { isLoading: loadingCreate }] = useCreateProductMutation();
+  // create product using  createProduct api
   const createProductHandler = async () => {
     if (window.confirm('Are you sure you want to create a new product?')) {
       try {

@@ -29,7 +29,7 @@ const ProductScreen = () => {
 
     const [createReview,  { isLoading: loadingProductReview} ] = useCreateReviewMutation(); 
 
-
+    // save review
     const submitHandler = async (e) => {
         e.preventDefault();
         try {
@@ -45,14 +45,14 @@ const ProductScreen = () => {
         }
     };
     
-
+    // test if user put qty more than maxqty
     const testMaxQty = (e) => {
         if (qty > product.countInStock) {
             alert("Entered quantity exceeds available stock!");
             setQty(product.countInStock); // Reset quantity to maximum available stock
         }
     }
-
+    // add item to cart
     const addToCartHandler = () => {
         dispatch(addToCart({...product ,qty}));
         navigate('/');

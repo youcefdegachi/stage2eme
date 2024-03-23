@@ -112,14 +112,15 @@ const createProductReview = asyncHandler(async (req, res) => {
 
     if (product) {
         const alreadyReviewed = product.reviews.find(
+            // check if the review has already been reviewed
         (r) => r.user.toString() === req.user._id.toString()
         );
-
+            // if already reviewed send ('Product already reviewed')
         if (alreadyReviewed) {
         res.status(400);
         throw new Error('Product already reviewed');
         }
-
+            // save review
         const review = {
         name: req.user.name,
         rating: Number(rating),
@@ -151,36 +152,6 @@ const getTopProducts = asyncHandler(async (req, res) => {
     res.json(products);
     });
 
-// §!! reduce products
-
-/* // @desc    Reduce form qty of products
-// @route   PUT /api/products/reduce
-// @access  Public
-const ReduceFromQtyOfProducts = asyncHandler(async (req, res) => {
-    const { name, price, description, image, brand, category, countInStock } =
-        req.body;
-
-    const product = await Product.findById(req.params.id);
-
-    if (product) {
-        if (product.countInStock>=countInStock) {
-        product.countInStock -= countInStock;
-        const updatedProduct = await product.save();
-        res.json(updatedProduct);
-        }else{
-            res.status(400);
-            throw new Error('Not enough stock');
-        }
-    } else {
-        res.status(404);
-        throw new Error('Product not found');
-    }
-});
-
-
- */
-
-
 
 
 export {
@@ -191,5 +162,4 @@ export {
     deleteProduct,
     createProductReview,
     getTopProducts,
-    // ReduceFromQtyOfProducts
 };

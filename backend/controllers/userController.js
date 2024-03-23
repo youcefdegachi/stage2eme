@@ -9,10 +9,11 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
-
+// Check if a user exists  and psw is correct
   if (user && (await user.matchPassword(password))) {
+    // Check if a user exists
     generateToken(res, user._id);
-
+    // Send a response with status code 200 in json format
     res.status(200).json({
       _id: user._id,
       name: user.name,
@@ -30,14 +31,14 @@ const authUser = asyncHandler(async (req, res) => {
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
-
+  // check if email already exist
   const userExists = await User.findOne({ email });
 
   if (userExists) {
     res.status(400);
     throw new Error('User already exists');
   }
-
+  // save new user
   const user = await User.create({
     name,
     email,
@@ -45,8 +46,9 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   if (user) {
+    // generate a JWT token
     generateToken(res, user._id);
-
+    // Send a response with state 201 in json format
     res.status(201).json({
       _id: user._id,
       name: user.name,
@@ -63,6 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req, res) => {
+  // change 'jwt' to  empty value
   res.cookie('jwt', '', {
     httpOnly: true,
     expires: new Date(0),
@@ -144,6 +147,9 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
+
+
+//! I stopped this function  in frontend is exist but never used
 // @desc    Get user by ID
 // @route   GET /api/users/:id
 // @access  Private/Admin
@@ -157,6 +163,8 @@ const getUserById = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
+//! I stopped this function in frontend is exist but never used
 // @desc    Update user
 // @route   PUT /api/users/:id
 // @access  Private/Admin

@@ -1,11 +1,15 @@
 import asyncHandler from '../middleware/asyncHandler.js';
 import Order from '../models/orderModel.js';
 import Product from '../models/productModel.js';
-// import { ReduceFromQtyOfProducts } from './productController.js';
+
+// this function is to create a new order and reduce from qty of products
 // @desc    Create new order
 // @route   POST /api/orders
 // @access  Private
 const addOrderItems = asyncHandler(async (req, res) => {
+  // % create order 
+  // read data from req
+
   const { orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice} = req.body;
   if (orderItems && orderItems.length === 0) {
     res.status(400);
@@ -25,7 +29,10 @@ const addOrderItems = asyncHandler(async (req, res) => {
       shippingPrice,
       totalPrice,
     });
+    // save order
     const createdOrder = await order.save();
+
+    // delete item from qty
     for (const item of orderItems) {
       const product = await Product.findById(item._id);
   
@@ -43,69 +50,14 @@ const addOrderItems = asyncHandler(async (req, res) => {
       await product.save();
     }
 
-    // await orderItems.map(ReduceFromQtyOfProducts(orderItems, res))
-    // await ReduceFromQtyOfProducts(orderItems, res);
-    
     res.status(201).json(createdOrder);
   }
 });
 
-//! chatgpt
-/* 
-const addOrderItems = asyncHandler(async (req, res) => {
-  const {
-    orderItems,
-    shippingAddress,
-    paymentMethod,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice
-  } = req.body;
-  
-  if (orderItems && orderItems.length === 0) {
-    res.status(400);
-    throw new Error('No order items');
-  }
-
-  // Check stock availability and update product count in stock
-  for (const item of orderItems) {
-    const product = await Product.findById(item._id);
-
-    if (!product) {
-      res.status(404);
-      throw new Error(`Product not found: ${item._id}`);
-    }
-
-    if (product.countInStock < item.qty) {
-      res.status(400);
-      throw new Error(`Not enough stock for ${product._id}`);
-    }
-
-    product.countInStock -= item.qty;
-    await product.save();
-  }
-
-  const order = new Order({
-    orderItems: orderItems.map((x) => ({
-      ...x,
-      _id: undefined
-    })),
-    user: req.user._id,
-    shippingAddress,
-    paymentMethod,
-    itemsPrice,
-    taxPrice,
-    shippingPrice,
-    totalPrice,
-  });
-
-  const createdOrder = await order.save();
-  res.status(201).json(createdOrder);
-});
- */
 
 
+
+// show order for my account
 // @desc    Get logged in user orders
 // @route   GET /api/orders/myOrders
 // @access  Private
@@ -115,12 +67,16 @@ const getMyOrders = asyncHandler(async (req, res) => {
 });
 
 
+
+// get specific order 
 // @desc    Get order by ID
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
+  // Retrieve a specific order from the database by its ID
   const orders = await Order.findById(req.params.id).populate('user','name email');
-  if (orders){
+  // Populate the 'user' field in the retrieved order document with data from related documents in the User collection
+  if (orders){ 
     res.status(200).json(orders);
   }else{
     res.status(404);
@@ -128,22 +84,15 @@ const getOrderById = asyncHandler(async (req, res) => {
   }
 });
 
+
 // @desc    Update order to paid
 // @route   PUT /api/orders/:id/pay
 // @access  Private
 const updateOrderToPaid = asyncHandler(async (req, res) => {
-  const { verified, value } = await verifyPayPalPayment(req.body.id);
-  if (!verified) throw new Error('Payment not verified');
 
   // check if this transaction has been used before
-  const isNewTransaction = await checkIfNewTransaction(Order, req.body.id);
-  if (!isNewTransaction) throw new Error('Transaction has been used before');
-
   const order = await Order.findById(req.params.id);
-
   if (order) {
-    const paidCorrectAmount = order.totalPrice.toString() === value;
-    if (!paidCorrectAmount) throw new Error('Incorrect amount paid');
 
     order.isPaid = true;
     order.paidAt = Date.now();
@@ -161,7 +110,7 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
   }
 });
 
-
+//change Delivered state fo order to delivered 
 // @desc    Update order to delivered
 // @route   PUT /api/orders/:id/deliver
 // @access  Private/Admin
@@ -181,7 +130,7 @@ const changeOrderToDelivered = asyncHandler(async (req, res) => {
   }
 });
 
-
+//change Delivered state fo order to not delivered 
 // @desc    Update order to not delivered
 // @route   Post /api/orders/:id/deliver
 // @access  Private/Admin
@@ -202,7 +151,7 @@ const changeOrderToNotDelivered = asyncHandler(async (req, res) => {
 });
 
 
-
+//change paid state fo order to paid 
 // @desc    Change order to paid
 // @route   PUT /api/orders/:id/paid
 // @access  Private/Admin
@@ -223,7 +172,7 @@ const changeOrderToPaid = asyncHandler(async (req, res) => {
 });
 
 
-
+//change paid state fo order to not paid 
 // @desc    Change order to not paid
 // @route   Post /api/orders/:id/paid
 // @access  Private/Admin
@@ -247,7 +196,7 @@ const changeOrderToNotPaid = asyncHandler(async (req, res) => {
 
 
 
-
+// get all orders
 // @desc    Get all orders
 // @route   GET /api/orders
 // @access  Private/Admin

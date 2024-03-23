@@ -10,7 +10,11 @@ export const productsApiSlice = apiSlice.injectEndpoints({
             url: PRODUCT_URL,
             params: { keyword, pageNumber },
         }),
+        // how many time will refetched before cleaning cache automatically
+        //!: it's normal to remove this once but cache will save old data and make my web site take longer reload
+        // will ne full of not important data 
         keepUnusedDataFor: 5,
+        // providesTags property to specify the tags that will be used to cache the data returned by this endpoint
         providesTags: ['Products'],
         }),
 
@@ -26,6 +30,8 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                 url: `${PRODUCT_URL}`,
                 method: 'POST',
             }),
+            // invalidatesTags property to specify that the data for this endpoint should be invalidated (refetched) when the 'Product' tag is updated
+
             invalidatesTags: ['Product'],
         }),
 

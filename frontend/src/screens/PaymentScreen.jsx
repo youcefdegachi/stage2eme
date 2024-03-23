@@ -7,11 +7,13 @@ import { savePaymentMethod } from '../slices/cartSlice';
 
 const PaymentScreen = () => {
   const navigate = useNavigate();
+  // read cart data from react redux
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
-
   useEffect(() => {
+    // test if user skip fill shipping address 
     if (!shippingAddress.address) {
+      // go back to fill shipping address
       navigate('/shipping');
     }
   }, [navigate, shippingAddress]);
@@ -19,7 +21,7 @@ const PaymentScreen = () => {
   const [paymentMethod, setPaymentMethod] = useState('delivery');
 
   const dispatch = useDispatch();
-
+  //payment method
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
